@@ -1,0 +1,24 @@
+name: Your Workflow Name
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Git
+      run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
+    - name: Get tag name
+      run: echo "Tag name is ${{ github.ref_name }}"
+
+    # Now you can use ${{ github.ref_name }} or ${{ github.ref }} in your subsequent steps
+    # to access the tag information.
+
